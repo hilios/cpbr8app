@@ -16,14 +16,15 @@ func main() {
 	db.Connect(os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"))
 	defer db.Close()
 
-	log.Println("Starting server...")
-
 	list := new(TaskListController)
 	http.HandleFunc("/tasks", RestController(list))
 
 	task := new(TaskController)
 	http.HandleFunc("/task", RestController(task))
 
+	port := fmt.Sprintf(":%s", os.Getenv("PORT"))
+	log.Printf("Starting server at %s...", port)
+
 	http.HandleFunc("/", helloHandler)
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServe(port, nil)
 }
