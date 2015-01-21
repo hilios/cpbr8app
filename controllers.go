@@ -8,6 +8,11 @@ import (
 
 type TaskListController struct{}
 
+// # GET /tasks
+// ============
+//
+// Fetchs all **Task** objects.
+//
 func (t *TaskListController) Get(params url.Values) (int, interface{}) {
 	db, conn := GetDatabase()
 	defer conn.Close()
@@ -17,6 +22,15 @@ func (t *TaskListController) Get(params url.Values) (int, interface{}) {
 
 type TaskController struct{}
 
+// GET /task
+// =========
+//
+// Fetch a **Task** by id.
+//
+// ### Params:
+//
+// - **id**: The object id hex string
+//
 func (t *TaskController) Get(params url.Values) (int, interface{}) {
 	db, conn := GetDatabase()
 	defer conn.Close()
@@ -29,6 +43,23 @@ func (t *TaskController) Get(params url.Values) (int, interface{}) {
 	return http.StatusOK, task
 }
 
+// POST /task
+// ==========
+
+// Create a new **Task** object.
+
+// ### Params:
+
+// - **ok**: The status as boolean string
+// - **desc**: The description string
+
+// #### Boolean string:
+
+// ```
+// 1, t, T, TRUE, true, True
+// 0, f, F, FALSE, false, False
+// ````
+//
 func (t *TaskController) Post(params url.Values) (int, interface{}) {
 	db, conn := GetDatabase()
 	defer conn.Close()
@@ -44,6 +75,24 @@ func (t *TaskController) Post(params url.Values) (int, interface{}) {
 	return http.StatusOK, task
 }
 
+// PUT /task
+// =========
+
+// Update a given *Task* by id.
+
+// ### Params:
+
+// - **id**: The object id hex string
+// - **ok**: The status as boolean string
+// - **desc**: The description string
+
+// #### Boolean string:
+
+// ```
+// 1, t, T, TRUE, true, True
+// 0, f, F, FALSE, false, False
+// ````
+//
 func (t *TaskController) Put(params url.Values) (int, interface{}) {
 	db, conn := GetDatabase()
 	defer conn.Close()
@@ -67,6 +116,15 @@ func (t *TaskController) Put(params url.Values) (int, interface{}) {
 	return http.StatusOK, task
 }
 
+// DELETE /task
+// ============
+
+// Remove a **Task** by id.
+
+// ### Params:
+
+// - **id**: The object id hex string
+//
 func (t *TaskController) Delete(params url.Values) (int, interface{}) {
 	db, conn := GetDatabase()
 	defer conn.Close()

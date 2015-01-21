@@ -38,8 +38,8 @@ func Abort(rw *http.ResponseWriter, code int) {
 	http.Error(*rw, err, code)
 }
 
-// Reflects the different HTTP verbs into the given resource, allows:
-// `Get`, `Post`, `Put`, `Delete`.
+// Reflects the different HTTP verbs into the given interface, allows the
+// following methods: `Get`, `Post`, `Put`, `Delete`.
 //
 // Based on a Doug Black code:
 // https://github.com/dougblack/sleepy/blob/master/core.go
@@ -102,12 +102,13 @@ func RestController(c interface{}) http.HandlerFunc {
 	}
 }
 
-// Simple http request logger
+// Simple HTTP request logger
 type HttpLogger struct {
 	initTime time.Time
 	request  http.Request
 }
 
+// Print with the method, url and request time
 func (l *HttpLogger) Print() {
 	log.Printf("%s \t %s %s",
 		time.Since(l.initTime).String(),

@@ -30,6 +30,7 @@ func ParseObjectId(id string) bson.ObjectId {
 	return oid
 }
 
+// Fetchs all Tasks
 func GetTaskList(db *mgo.Database) *TaskList {
 	tasks := make([]Task, 0)
 
@@ -39,6 +40,7 @@ func GetTaskList(db *mgo.Database) *TaskList {
 	return &TaskList{tasks}
 }
 
+// Fetch a single Task by the id
 func GetTaskById(db *mgo.Database, id string) (*Task, error) {
 	var task Task
 
@@ -49,16 +51,19 @@ func GetTaskById(db *mgo.Database, id string) (*Task, error) {
 	return &task, err
 }
 
+// Insert the Task at the db
 func (t *Task) Insert(db *mgo.Database) error {
 	collection := db.C(TASKS)
 	return collection.Insert(t)
 }
 
+// Update the Task at the db
 func (t *Task) Update(db *mgo.Database) error {
 	collection := db.C(TASKS)
 	return collection.UpdateId(t.Id, t)
 }
 
+// Remove the Task from db
 func (t *Task) Remove(db *mgo.Database) error {
 	collection := db.C(TASKS)
 	return collection.RemoveId(t.Id)
