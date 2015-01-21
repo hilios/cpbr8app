@@ -47,6 +47,10 @@ func RestController(c interface{}) http.HandlerFunc {
 	return func(rw http.ResponseWriter, r *http.Request) {
 		log := NewHttpLogger(*r)
 		defer log.Print()
+		// Add some usefull headers
+		h := rw.Header()
+		h.Set("Access-Control-Allow-Origin", "*")
+		h.Set("Connection", "close")
 		// Parse sent data
 		if r.ParseForm() != nil {
 			Abort(&rw, http.StatusBadRequest)
