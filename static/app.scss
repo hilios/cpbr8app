@@ -1,0 +1,25 @@
+---
+---
+
+body {
+  background: #E0E0E0;
+  padding: 40px 0;
+}
+
+header {
+  border-radius: 4px 4px 0 0;
+  background: #4CAF50;
+  padding: 15px;
+}
+
+footer {
+  border-radius: 0 0 4px 4px;
+  background: #C8E6C9;
+  padding: (15px / 2) 15px;
+}
+
+.container {
+  background: #FFFFFF;
+  border-radius: 4px;
+  box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
