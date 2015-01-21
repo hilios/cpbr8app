@@ -78,8 +78,11 @@ func RestController(c interface{}) http.HandlerFunc {
 			Abort(&rw, http.StatusMethodNotAllowed)
 			return
 		}
+		// Create the params from GET and POST values
+		params, _ := url.ParseQuery(fmt.Sprintf("%s&%s",
+			r.URL.Query().Encode(), r.Form.Encode()))
 		// Call the handler
-		code, data := handler(r.Form)
+		code, data := handler(params)
 		// Set a default
 		if data == nil {
 			data = map[string]interface{}{
