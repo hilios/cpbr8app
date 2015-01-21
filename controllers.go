@@ -135,7 +135,6 @@ func (t *TaskController) Delete(params url.Values) (int, interface{}) {
 	}
 	// Do remove
 	if err := task.Remove(db); err != nil {
-		log.Println(err)
 		return http.StatusBadRequest, nil
 	}
 
