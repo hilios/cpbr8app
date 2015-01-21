@@ -21,7 +21,7 @@ func main() {
 	list := new(TaskListController)
 	http.HandleFunc("/tasks", RestController(list))
 
-	task := new(TaskListController)
+	task := new(TaskController)
 	http.HandleFunc("/task", RestController(task))
 
 	http.HandleFunc("/", helloHandler)
