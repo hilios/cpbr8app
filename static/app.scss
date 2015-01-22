@@ -90,9 +90,10 @@ article {
 
 .add-task {
   $size: 55px;
-  background-color: #FFFFFF;
+  background-color: #FF5722;
   box-shadow: 1px 2px 8px 0 rgba(0, 0, 0, 0.45);
   border-radius: 50%;
+  color: #FFFFFF;
 
   padding: 0;
   line-height: $size + 5px;
@@ -110,12 +111,13 @@ article {
 
   &:hover {
     background-image: none !important;
-    background-color: #E6E6E6;
+    background-color: #E64A19;
   }
   &:active,
   &:visited {
     background-image: none !important;
-    background-color: #FFFFFF;
+    background-color: #E0E0E0;
+    color: #000000;
   }
 }
 
@@ -144,6 +146,10 @@ article {
     cursor: pointer;
     color: #9E9E9E;
     padding-right: $padding;
+  }
+
+  .desc {
+    cursor: default;
   }
 
   .button {
