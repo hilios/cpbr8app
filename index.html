@@ -25,6 +25,7 @@ layout: base
     </button>
     <task ng-repeat="task in tasks" ng-model="task"></task>
   </article>
+
   <footer>
     <div class="pure-g">
       <div class="pure-u-1-3">
@@ -40,6 +41,32 @@ layout: base
     </div>
   </footer>
 </div>
+
+<div class="modal" ng-if="loading">
+  <div class="spinner">
+    <i class="icon-spinner5"></i>
+  </div>
+  <div class="overlay"></div>
+</div>
+
+<div class="modal" ng-if="selected">
+  <div class="dialog">
+    <h2>Editar tarefa</h2>
+    <p>
+      <input type="text" placeholder="Descrição">
+    </p>
+    <p class="align-right">
+      <button class="pure-button">
+        Salvar
+      </button>
+      <button class="pure-button">
+        Cancelar
+      </button>
+    </p>
+  </div>
+  <div class="overlay overlay-dark"></div>
+</div>
+
 <script type="text/ng-template" id="task.html">
   <div class="task" ng-class="{'ok': ngModel.ok}" ng-mouseenter="editButton = true" ng-mouseleave="editButton = false">
     <button ng-show="editButton" class="button pull-right">

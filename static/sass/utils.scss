@@ -2,12 +2,32 @@
   float: right;
 }
 
-.align-rigth {
+.align-right {
   text-align: right;
 }
 
 .align-center {
   text-align: center;
+}
+
+input {
+  border-color: transparent;
+  border-bottom: 1px solid #CCCCCC;
+
+  padding: 10px 0;
+  width: 100%;
+
+  &:focus {
+    border-bottom: 2px solid $primary-color;
+  }
+}
+
+textarea:focus, input:focus{
+    outline: 0;
+}
+
+*:focus {
+    outline: 0;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {

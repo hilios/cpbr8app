@@ -27,6 +27,10 @@ app.factory('Tasks', function($http, API_ENDPOINT) {
 app.controller('TasksController', function ($scope, Tasks) {
   $scope.tasks = [];
 
+  $scope.select = function(model) {
+
+  }
+
   $scope.refresh = function() {
     Tasks.all().success(function(data) {
       $scope.tasks = data.tasks;
