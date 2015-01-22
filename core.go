@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 )
 
@@ -16,6 +17,8 @@ const (
 	DELETE  = "DELETE"
 	OPTIONS = "OPTIONS"
 )
+
+var all = strings.Join([]string{OPTIONS, GET, POST, PUT, DELETE}, ", ")
 
 type GetMethod interface {
 	Get(url.Values) (int, interface{})
@@ -50,10 +53,10 @@ func RestController(c interface{}) http.HandlerFunc {
 		defer log.Print()
 		// Add some usefull headers
 		h := rw.Header()
-		h.Set("Access-Control-Allow-Origin", "*")
-		h.Set("Access-Control-Allow-Methods", "*")
-		h.Set("Allow", "*")
-		h.Set("Connection", "close")
+		h.Add("Content-Type", "application/json; charset=utf-8")
+		h.Add("Access-Control-Allow-Origin", "*")
+		h.Add("Access-Control-Allow-Methods", all)
+		h.Add("Connection", "close")
 		// Parse sent data
 		if r.ParseForm() != nil {
 			Abort(&rw, http.StatusBadRequest)
@@ -86,6 +89,7 @@ func RestController(c interface{}) http.HandlerFunc {
 		}
 		// Abort with a 405 status
 		if handler == nil {
+			h.Add("Allow", all)
 			Abort(&rw, http.StatusMethodNotAllowed)
 			return
 		}
@@ -102,7 +106,7 @@ func RestController(c interface{}) http.HandlerFunc {
 			}
 		}
 		// Encode
-		content, err := json.MarshalIndent(data, "", "\t")
+		content, err := json.Marshal(data)
 		if err != nil {
 			Abort(&rw, http.StatusInternalServerError)
 			return
