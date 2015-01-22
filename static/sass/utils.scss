@@ -16,9 +16,11 @@ input {
 
   padding: 10px 0;
   width: 100%;
+  margin-bottom: 1px;
 
   &:focus {
     border-bottom: 2px solid $primary-color;
+    margin-bottom: 0;
   }
 }
 

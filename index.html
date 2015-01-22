@@ -2,6 +2,7 @@
 layout: base
 ---
 {% raw %}
+<spinner></spinner>
 <div class="container" ng-controller="TasksController">
   <header>
     <div class="top-bar">
@@ -11,6 +12,7 @@ layout: base
       <i class="icon-connection"></i>
       <i class="icon-clock2"></i>
     </div>
+
     <div class="title-bar">
       <h1>
         <i class="icon-checkmark pull-right"></i>
@@ -20,67 +22,80 @@ layout: base
   </header>
 
   <article class="tasks">
-    <button class="pure-button add-task">
+    <button class="pure-button add-task" ng-click="open({})">
       <i class="icon-plus"></i>
     </button>
-    <task ng-repeat="task in tasks" ng-model="task"></task>
+    <task ng-repeat="task in tasks" ng-model="task" on-edit="open(ngModel)"></task>
   </article>
 
   <footer>
     <div class="pure-g">
       <div class="pure-u-1-3">
-
-      </div>
-      <div class="pure-u-1-3 align-center">
-        {{ tasks|filter:{ok: true}|len }} of {{ tasks|len }}
         <i class="icon-checkmark"></i>
+        {{ tasks|filter:{ok: true}|len }} of {{ tasks|len }} done!
       </div>
-      <div class="pure-u-1-3">
 
+      <div class="pure-u-1-3 align-center">
+        <a href="https://github.com/hilios/cpbr8app">
+          <i class="icon-embed2"></i>
+        </a>
+      </div>
+
+      <div class="pure-u-1-3 align-right">
+        <button class="pure-button" ng-click="refresh()">
+          <i class="icon-spinner11"></i>
+        </button>
       </div>
     </div>
   </footer>
-</div>
+  <div class="modal" ng-if="currentModel" ng-cloak>
 
-<div class="modal" ng-if="loading">
-  <div class="spinner">
-    <i class="icon-spinner5"></i>
+    <div class="dialog">
+      <h2 ng-if="currentModel.id">Editar tarefa</h2>
+      <h2 ng-if="!currentModel.id">Criar tarefa</h2>
+      <p>
+        <input type="text" placeholder="Descrição" ng-model="currentModel.desc">
+      </p>
+      <p class="align-right">
+        <button class="pure-button" ng-click="save(currentModel)">
+          Salvar
+        </button>
+        <button class="pure-button" ng-click="close()">
+          Cancelar
+        </button>
+      </p>
+    </div>
+    <div class="overlay overlay-dark"></div>
   </div>
-  <div class="overlay"></div>
-</div>
-
-<div class="modal" ng-if="selected">
-  <div class="dialog">
-    <h2>Editar tarefa</h2>
-    <p>
-      <input type="text" placeholder="Descrição">
-    </p>
-    <p class="align-right">
-      <button class="pure-button">
-        Salvar
-      </button>
-      <button class="pure-button">
-        Cancelar
-      </button>
-    </p>
-  </div>
-  <div class="overlay overlay-dark"></div>
 </div>
 
 <script type="text/ng-template" id="task.html">
-  <div class="task" ng-class="{'ok': ngModel.ok}" ng-mouseenter="editButton = true" ng-mouseleave="editButton = false">
-    <button ng-show="editButton" class="button pull-right">
-      <i class="icon-pencil"></i>
-    </button>
-    <div class="wrapper" ng-click="ngModel.ok = !ngModel.ok">
-      <span class="checkbox">
+  <div class="task" ng-class="{'ok': ngModel.ok}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+    <div class="actions pull-right">
+      <button ng-show="hover" ng-click="onEdit({'ngModel': ngModel})" class="button button-edit">
+        <i class="icon-pencil"></i>
+      </button>
+      <button ng-show="hover" ng-click="onRemove({'ngModel': ngModel})" class="button button-remove">
+        <i class="icon-bin2"></i>
+      </button>
+    </div>
+    <div class="wrapper">
+      <span class="checkbox" ng-click="ngModel.ok = !ngModel.ok">
         <i ng-show="ngModel.ok" class="icon-checkbox-checked"></i>
         <i ng-hide="ngModel.ok" class="icon-checkbox-unchecked"></i>
       </span>
-      <span ng-hide="editMode" class="desc">
+      <span class="desc">
         {{ ngModel.desc }}
       </span>
     </div>
+  </div>
+</script>
+<script type="text/ng-template" id="spinner.html">
+  <div class="modal" ng-if="isLoading" ng-cloak>
+    <div class="spinner">
+      <i class="icon-spinner11"></i>
+    </div>
+    <div class="overlay"></div>
   </div>
 </script>
 {% endraw %}

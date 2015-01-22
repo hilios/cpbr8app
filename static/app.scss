@@ -64,6 +64,21 @@ footer {
   height: $footer;
   color: #FFFFFF;
   line-height: $footer;
+
+  a {
+    color: #9E9E9E;
+    font-size: 1.9em;
+    text-decoration: none;
+
+    &:hover {
+      color: #FAFAFA;
+    }
+  }
+
+  .pure-button {
+    background: none transparent !important;
+    color: #FFFFFF;
+  }
 }
 
 article {
@@ -97,7 +112,9 @@ article {
     background-image: none !important;
     background-color: #E6E6E6;
   }
-  &:active {
+  &:active,
+  &:visited {
+    background-image: none !important;
     background-color: #FFFFFF;
   }
 }
@@ -115,7 +132,7 @@ article {
     -o-user-select: none;
     user-select: none;
 
-    cursor: pointer;
+
     overflow: hidden;
     font-size: 1em;
     line-height: $padding * 2;
@@ -124,27 +141,51 @@ article {
   }
 
   .checkbox {
+    cursor: pointer;
     color: #9E9E9E;
     padding-right: $padding;
   }
 
   .button {
     $size: 30px;
-    background-color: #42A5F5;
+    background-color: #9E9E9E;
     border-color: transparent;
     border-radius: 50%;
-    padding: 0;
+
+
     color: #FFFFFF;
     line-height: $size * 0.95;
     font-size: 0.75em;
+
+    padding: 0;
+    margin-left: 5px;
     width: $size;
     height: $size;
 
     &:hover {
-      background-color: #1E88E5;
+      background-color: #757575;
     }
     &:active {
-      background-color: #1565C0;
+      background-color: #616161;
+    }
+
+    &.button-edit {
+      background-color: #42A5F5;
+      &:hover {
+        background-color: #1E88E5;
+      }
+      &:active {
+        background-color: #1565C0;
+      }
+    }
+    &.button-remove {
+      background-color: #E53935;
+      &:hover {
+      background-color: #D32F2F;
+      }
+      &:active {
+        background-color: #B71C1C;
+      }
     }
   }
 
@@ -172,7 +213,7 @@ article {
 .dialog {
   z-index: 200;
   position: absolute;
-  top: 30%;
+  top: 15%;
   left: 10%;
   right: 10%;
 
@@ -263,6 +304,7 @@ article {
     -ms-animation: spin linear 1s infinite;
     -o-animation: spin linear 1s infinite;
     animation: spin linear 1s infinite;
+    color: #919191;
 
     position: absolute;
     top: 50%;

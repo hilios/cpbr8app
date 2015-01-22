@@ -17,19 +17,22 @@
     position: absolute;
     top: $header;
     bottom: $footer;
-    width: 100%;
+    left: 0;
+    right: 0;
     min-height: auto;
   }
 
   header {
     position: absolute;
     top: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
   }
 
   footer {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
   }
 }
