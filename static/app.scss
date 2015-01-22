@@ -1,25 +1,89 @@
 ---
 ---
 
+@import "icons";
+
+$padding: 15px;
+
 body {
   background: #E0E0E0;
-  padding: 40px 0;
+  padding: ($padding * 4) 0;
+}
+
+body, 
+.pure-g [class *="pure-u"] {
+  font-family: 'Roboto', sans-serif;
 }
 
 header {
-  border-radius: 4px 4px 0 0;
   background: #4CAF50;
-  padding: 15px;
+  padding: $padding;
+  color: #FFFFFF;
+
+  h1 {
+    font-weight: 300;
+    font-size: 1.4em;
+    margin: 0;
+  }
 }
 
+.top {
+    padding: ($padding / 3);
+    background: #388E3C;
+    font-size: 0.75em;
+    text-align: right;
+    color: #FFFFFF;
+
+    i {
+      margin-left: 5px;
+    }
+  }
+
 footer {
-  border-radius: 0 0 4px 4px;
-  background: #C8E6C9;
-  padding: (15px / 2) 15px;
+  background: #000000;
+  padding: ($padding / 3);
 }
 
 .container {
   background: #FFFFFF;
-  border-radius: 4px;
   box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.tasks {
+  min-height: 510px;
+}
+
+.task {  
+  border-bottom: 1px solid #EEEEEE;
+  font-size: 1em;
+  line-height: $padding * 2;
+  padding: $padding;
+
+  .checkbox {
+    display: inline-block;
+    cursor: pointer;
+    height: 100%;
+
+    color: #9E9E9E;
+    text-align: center;
+    padding-right: $padding;
+  }
+
+  .remove-button {
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  &.ok {
+    background: #E8F5E9;
+
+    .desc {
+      text-decoration: line-through;
+      color: #616161;
+    }
+  }
+}
+
+.pull-right {
+  float: right;
 }
