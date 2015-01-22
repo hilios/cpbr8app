@@ -10,10 +10,11 @@ import (
 )
 
 const (
-	GET    = "GET"
-	POST   = "POST"
-	PUT    = "PUT"
-	DELETE = "DELETE"
+	GET     = "GET"
+	POST    = "POST"
+	PUT     = "PUT"
+	DELETE  = "DELETE"
+	OPTIONS = "OPTIONS"
 )
 
 type GetMethod interface {
@@ -75,6 +76,12 @@ func RestController(c interface{}) http.HandlerFunc {
 		case DELETE:
 			if c, ok := c.(DeleteMethod); ok {
 				handler = c.Delete
+			}
+		case OPTIONS:
+			handler = func(_ url.Values) (int, interface{}) {
+				// Allow every methos
+				h.Set("Allow", "OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE")
+				return http.StatusOK, ""
 			}
 		}
 		// Abort with a 405 status
