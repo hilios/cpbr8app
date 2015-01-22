@@ -10,12 +10,11 @@ import (
 )
 
 const (
-	GET             = "GET"
-	POST            = "POST"
-	PUT             = "PUT"
-	DELETE          = "DELETE"
-	OPTIONS         = "OPTIONS"
-	ALLOWED_METHODS = "OPTIONS, GET, POST, PUT, DELETE"
+	GET     = "GET"
+	POST    = "POST"
+	PUT     = "PUT"
+	DELETE  = "DELETE"
+	OPTIONS = "OPTIONS"
 )
 
 type GetMethod interface {
@@ -52,7 +51,8 @@ func RestController(c interface{}) http.HandlerFunc {
 		// Add some usefull headers
 		h := rw.Header()
 		h.Set("Access-Control-Allow-Origin", "*")
-		h.Set("Access-Control-Allow-Methods", ALLOWED_METHODS)
+		h.Set("Access-Control-Allow-Methods", "*")
+		h.Set("Allow", "*")
 		h.Set("Connection", "close")
 		// Parse sent data
 		if r.ParseForm() != nil {
@@ -81,8 +81,6 @@ func RestController(c interface{}) http.HandlerFunc {
 			}
 		case OPTIONS:
 			handler = func(_ url.Values) (int, interface{}) {
-				// Allow every methos
-				h.Set("Allow", ALLOWED_METHODS)
 				return http.StatusOK, ""
 			}
 		}
