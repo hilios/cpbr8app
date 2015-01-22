@@ -3,5 +3,5 @@ title:      CPBR8 ToDo App
 baseurl:    http://hilios.github.io/cpbr8app
 highlight:  true
 sass:
-    sass_dir: static
+    sass_dir: static/sass
     style:    :compressed

@@ -1,33 +1,32 @@
 ---
 ---
 
+@import "utils";
 @import "icons";
 
 $padding: 15px;
+$header: 80px;
+$footer: 55px;
+$border: 1px solid #E8E8E8;
 
 body {
   background: #E0E0E0;
-  padding: ($padding * 4) 0;
+  padding: 1em 0;
 }
 
-body, 
+body,
 .pure-g [class *="pure-u"] {
   font-family: 'Roboto', sans-serif;
 }
 
-header {
-  background: #4CAF50;
-  padding: $padding;
-  color: #FFFFFF;
-
-  h1 {
-    font-weight: 300;
-    font-size: 1.4em;
-    margin: 0;
-  }
+.container {
+  box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 
-.top {
+header {
+  height: $header;
+
+  .top-bar {
     padding: ($padding / 3);
     background: #388E3C;
     font-size: 0.75em;
@@ -37,45 +36,115 @@ header {
     i {
       margin-left: 5px;
     }
+
+    .carrier {
+      float: left;
+      text-align: left;
+    }
   }
+  .title-bar {
+    background: #4CAF50;
+    padding: $padding;
+    color: #FFFFFF;
+
+    h1 {
+      font-weight: 300;
+      font-size: 1.4em;
+      margin: 0;
+    }
+  }
+}
 
 footer {
   background: #000000;
-  padding: ($padding / 3);
+  padding: 0 $padding;
+  height: $footer;
+  color: #FFFFFF;
+  line-height: $footer;
 }
 
-.container {
+article {
+  border: $border;
   background: #FFFFFF;
-  box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
-
-.tasks {
   min-height: 510px;
+  position: relative;
 }
 
-.task {  
-  border-bottom: 1px solid #EEEEEE;
-  font-size: 1em;
-  line-height: $padding * 2;
+.add-task {
+  $size: 55px;
+  background-color: #FFFFFF;
+  box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.45);
+  border-radius: 50%;
+
+  padding: 0;
+  line-height: $size + 5px;
+  text-align: center;
+
+  position: absolute;
+  bottom: $padding;
+  right: $padding;
+  width: $size;
+  height: $size;
+
+  i {
+    margin-left: 2px;
+  }
+
+  &:hover {
+    background-color: #E6E6E6;
+  }
+}
+
+.task {
+  display: block;
+  border-bottom: $border;
   padding: $padding;
 
-  .checkbox {
-    display: inline-block;
-    cursor: pointer;
-    height: 100%;
+  .wrapper {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
+    cursor: pointer;
+    overflow: hidden;
+    font-size: 1em;
+    line-height: $padding * 2;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .checkbox {
     color: #9E9E9E;
-    text-align: center;
     padding-right: $padding;
   }
 
-  .remove-button {
-    background-color: transparent;
+  .button {
+    $size: 30px;
+    background-color: #42A5F5;
     border-color: transparent;
+    border-radius: 50%;
+    padding: 0;
+    color: #FFFFFF;
+    line-height: $size * 0.95;
+    font-size: 0.75em;
+    width: $size;
+    height: $size;
+
+    &:hover {
+      background-color: #1E88E5;
+    }
+    &:active {
+      background-color: #1565C0;
+    }
   }
 
   &.ok {
-    background: #E8F5E9;
+    .checkbox {
+      color: #8BC34A;
+    }
 
     .desc {
       text-decoration: line-through;
@@ -84,6 +153,4 @@ footer {
   }
 }
 
-.pull-right {
-  float: right;
-}
+@import "responsive";

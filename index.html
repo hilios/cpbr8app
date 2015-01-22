@@ -1,51 +1,59 @@
 ---
 layout: base
 ---
-
-<div class="container">
-  <div class="top">
-    <i class="icon-connection"></i>
-    <i class="icon-clock2"></i>
-  </div>
-
+{% raw %}
+<div class="container" ng-controller="TasksController">
   <header>
-    <h1>
-      <i class="icon-checkmark pull-right"></i>
-      Tasks
-    </h1>
+    <div class="top-bar">
+      <span class="carrier">
+        CPBR8
+      </span>
+      <i class="icon-connection"></i>
+      <i class="icon-clock2"></i>
+    </div>
+    <div class="title-bar">
+      <h1>
+        <i class="icon-checkmark pull-right"></i>
+        Tasks
+      </h1>
+    </div>
   </header>
 
   <article class="tasks">
-    <form>
-
-    </form>
-    <div class="task">
-      <button class="remove-button pull-right">
-        <i class="icon-bin"></i>
-      </button>
-      <div class="checkbox">
-        <i class="icon-checkbox-unchecked"></i>
-      </div>
-      <span class="desc">Foo</span>
-    </div>
-    <div class="task ok">
-      <button class="remove-button pull-right">
-        <i class="icon-bin"></i>
-      </button>
-      <div class="checkbox">
-        <i class="icon-checkbox-checked"></i>
-      </div>
-      <span class="desc">Foo</span>
-    </div>
+    <button class="pure-button add-task">
+      <i class="icon-plus"></i>
+    </button>
+    <task ng-repeat="task in tasks" ng-model="task"></task>
   </article>
-
   <footer>
     <div class="pure-g">
       <div class="pure-u-1-3">
-        MIT License
+
       </div>
-      <div class="pure-u-1-3"></div>
-      <div class="pure-u-1-3"></div>
+      <div class="pure-u-1-3 align-center">
+        {{ tasks|filter:{ok: true}|len }} of {{ tasks|len }}
+        <i class="icon-checkmark"></i>
+      </div>
+      <div class="pure-u-1-3">
+
+      </div>
     </div>
   </footer>
 </div>
+<script type="text/ng-template" id="task.html">
+  <div class="task" ng-class="{'ok': ngModel.ok}" ng-mouseenter="editButton = true" ng-mouseleave="editButton = false">
+    <button ng-show="editButton" class="button pull-right">
+      <i class="icon-pencil"></i>
+    </button>
+    <div class="wrapper" ng-click="ngModel.ok = !ngModel.ok">
+      <span class="checkbox">
+        <i ng-show="ngModel.ok" class="icon-checkbox-checked"></i>
+        <i ng-hide="ngModel.ok" class="icon-checkbox-unchecked"></i>
+      </span>
+      <span ng-hide="editMode" class="desc">
+        {{ ngModel.desc }}
+      </span>
+    </div>
+  </div>
+</script>
+{% endraw %}
