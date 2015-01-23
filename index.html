@@ -25,7 +25,7 @@ layout: base
     <button class="pure-button floating-button" ng-click="open({})">
       <i class="icon-plus"></i>
     </button>
-    <task ng-repeat="task in tasks" ng-model="task" on-edit="open(ngModel)" on-remove="remove(ngModel)"></task>
+    <task ng-repeat="task in tasks" ng-model="task" on-edit="open(ngModel)" on-remove="remove(ngModel)" on-toggle="toggle(ngModel)"></task>
   </article>
 
   <footer>
@@ -81,7 +81,7 @@ layout: base
       </button>
     </div>
     <div class="wrapper">
-      <span class="checkbox" ng-click="ngModel.ok = !ngModel.ok">
+      <span class="checkbox" ng-click="onToggle({'ngModel': ngModel})">
         <i ng-show="ngModel.ok" class="icon-checkbox-checked"></i>
         <i ng-hide="ngModel.ok" class="icon-checkbox-unchecked"></i>
       </span>

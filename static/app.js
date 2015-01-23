@@ -38,7 +38,6 @@ app.config(function($httpProvider) {
     }
     // Serialize the buffer and clean it up for transportation.
     var source = buffer.join("&").replace(/%20/g, "+");
-    console.log(source);
 
     return source;
   }
@@ -140,8 +139,6 @@ app.controller('TasksController', function ($scope, Tasks, Spinner) {
   $scope.tasks = [];
   $scope.currentModel = null;
 
-
-
   $scope.open = function(model) {
     $scope.currentModel = model;
   }
@@ -199,7 +196,8 @@ app.directive('task', function() {
     scope: {
       'ngModel': '=',
       'onEdit': '&',
-      'onRemove': '&'
+      'onRemove': '&',
+      'onToggle': '&'
     }
   };
 });
