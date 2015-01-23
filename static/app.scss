@@ -158,28 +158,30 @@ article {
 
   .button {
     $size: 30px;
-    background-color: #9E9E9E;
+    background-color: #FFFFFF;
     border-color: transparent;
     border-radius: 50%;
 
 
-    color: #FFFFFF;
+    color: #9E9E9E;
     line-height: $size * 0.95;
-    font-size: 0.75em;
+    font-size: 0.82em;
 
     padding: 0;
-    margin-left: 5px;
+    // margin-left: 5px;
     width: $size;
     height: $size;
 
     &:hover {
-      background-color: #757575;
+      background-color: #E0E0E0;
+      color: #424242;
     }
     &:active {
-      background-color: #616161;
+      background-color: #BDBDBD;
+      color: #424242;
     }
 
-    &.button-edit {
+    &.button-blue {
       background-color: #42A5F5;
       &:hover {
         background-color: #1E88E5;
@@ -188,7 +190,7 @@ article {
         background-color: #1565C0;
       }
     }
-    &.button-remove {
+    &.button-red {
       background-color: #E53935;
       &:hover {
       background-color: #D32F2F;
@@ -207,6 +209,15 @@ article {
     .desc {
       text-decoration: line-through;
       color: #616161;
+    }
+  }
+
+  &.empty {
+    line-height: $padding * 3;
+    color: #757575;
+
+    i {
+      margin-right: 10px;
     }
   }
 }

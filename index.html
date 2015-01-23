@@ -26,6 +26,10 @@ layout: base
       <i class="icon-plus"></i>
     </button>
     <task ng-repeat="task in tasks" ng-model="task" on-edit="open(ngModel)" on-remove="remove(ngModel)" on-toggle="toggle(ngModel)"></task>
+    <div class="task empty" ng-if="tasks && tasks.length == 0">
+      <i class="icon-checkmark"></i>
+      Você não possui nenhuma tarefa!
+    </div>
   </article>
 
   <footer>
@@ -73,10 +77,10 @@ layout: base
 <script type="text/ng-template" id="task.html">
   <div class="task" ng-class="{'ok': ngModel.ok}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
     <div class="actions pull-right">
-      <button ng-show="hover" ng-click="onEdit({'ngModel': ngModel})" class="button button-edit">
+      <button ng-show="hover" ng-click="onEdit({'ngModel': ngModel})" class="button">
         <i class="icon-pencil"></i>
       </button>
-      <button ng-show="hover" ng-click="confirm = true" class="button button-remove">
+      <button ng-show="hover" ng-click="confirm = true" class="button">
         <i class="icon-bin2"></i>
         <span ng-show="showButton">Tem certeza?</span>
       </button>

@@ -136,7 +136,7 @@ app.factory('Spinner', function($rootScope, $q) {
 app.controller('TasksController', function ($scope, Tasks, Spinner) {
   var q;
 
-  $scope.tasks = [];
+  $scope.tasks = null;
   $scope.currentModel = null;
 
   $scope.open = function(model) {
