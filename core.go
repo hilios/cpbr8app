@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 )
 
@@ -16,6 +17,8 @@ const (
 	DELETE  = "DELETE"
 	OPTIONS = "OPTIONS"
 )
+
+var all = strings.Join([]string{OPTIONS, GET, POST, PUT, DELETE}, ", ")
 
 type GetMethod interface {
 	Get(url.Values) (int, interface{})
@@ -46,19 +49,17 @@ func Abort(rw *http.ResponseWriter, code int) {
 // https://github.com/dougblack/sleepy/blob/master/core.go
 func RestController(c interface{}) http.HandlerFunc {
 	return func(rw http.ResponseWriter, r *http.Request) {
-		log := NewHttpLogger(*r)
-		defer log.Print()
+		l := NewHttpLogger(*r)
+		defer l.Print()
 		// Add some usefull headers
 		h := rw.Header()
-		h.Set("Access-Control-Allow-Origin", "*")
-		h.Set("Access-Control-Allow-Methods", "*")
-		h.Set("Allow", "*")
-		h.Set("Connection", "close")
-		// Parse sent data
-		if r.ParseForm() != nil {
-			Abort(&rw, http.StatusBadRequest)
-			return
-		}
+		h.Add("Content-Type", "application/json; charset=utf-8")
+		h.Add("Connection", "close")
+		// CORS Headers
+		h.Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, "+
+			"Content-Type, Accept")
+		h.Add("Access-Control-Allow-Origin", "*")
+		h.Add("Access-Control-Allow-Methods", all)
 
 		var handler func(url.Values) (int, interface{})
 
@@ -83,10 +84,16 @@ func RestController(c interface{}) http.HandlerFunc {
 			handler = func(_ url.Values) (int, interface{}) {
 				return http.StatusOK, ""
 			}
+			h.Add("Allow", all)
 		}
 		// Abort with a 405 status
 		if handler == nil {
 			Abort(&rw, http.StatusMethodNotAllowed)
+			return
+		}
+		// Parse request data
+		if err := r.ParseForm(); err != nil {
+			Abort(&rw, http.StatusBadRequest)
 			return
 		}
 		// Create the params from GET and POST values
@@ -102,7 +109,7 @@ func RestController(c interface{}) http.HandlerFunc {
 			}
 		}
 		// Encode
-		content, err := json.MarshalIndent(data, "", "\t")
+		content, err := json.Marshal(data)
 		if err != nil {
 			Abort(&rw, http.StatusInternalServerError)
 			return
