@@ -73,31 +73,48 @@ app.factory('Tasks', function($http, API_ENDPOINT) {
     return url;
   }
 
+  function getId(model) {
+    var id = null;
+
+    if (model.hasOwnProperty('id')) {
+      id = model.id;
+    }
+
+    return id;
+  }
+
   function all() {
     var url = _urlFor('/tasks');
     return $http.get(url);
   }
 
-  function put(data) {
-    var id, url, q;
-    if (data.hasOwnProperty('id')) {
-      id = data.id;
-    }
+  function put(model) {
+    var url, q, id = getId(model);
+
 
     if (id) {
       url = _urlFor('/task', id);
-      q = $http.put(url, data);
+      q = $http.put(url, model);
     } else {
       url = _urlFor('/task');
-      q = $http.post(url, data);
+      q = $http.post(url, model);
     }
 
     return q;
   }
 
+  function remove(model) {
+    var url, id = getId(model);
+
+    url = _urlFor('/task', id);
+    return $http.delete(url)
+  }
+
   return {
     'all': all,
-    'put': put
+    'put': put,
+    'remove': remove,
+    'getId': getId
   };
 });
 app.factory('Spinner', function($rootScope, $q) {
@@ -123,11 +140,7 @@ app.controller('TasksController', function ($scope, Tasks, Spinner) {
   $scope.tasks = [];
   $scope.currentModel = null;
 
-  function _findById(id) {
-    return function(model) {
-      return model.id == id;
-    }
-  }
+
 
   $scope.open = function(model) {
     $scope.currentModel = model;
@@ -136,9 +149,9 @@ app.controller('TasksController', function ($scope, Tasks, Spinner) {
   $scope.save = function(model) {
     q = Tasks.put(model)
       .success(function(data) {
-        var isNew = !$scope.tasks.some(_findById(data.id));
+        var isNew = $scope.tasks.map(Tasks.getId).indexOf(data.id) == -1;
         if (isNew) {
-          $scope.tasks.push(data)
+          $scope.tasks.push(data);
         }
       })
       .finally(function() {
@@ -150,7 +163,18 @@ app.controller('TasksController', function ($scope, Tasks, Spinner) {
 
   $scope.toggle = function(model) {
     model.ok = !model.ok;
-    $scope.save()
+    $scope.save(model);
+  }
+
+  $scope.remove = function(model) {
+    q = Tasks.remove(model)
+      .success(function() {
+        // Remove the model from the list
+        var i = $scope.tasks.indexOf(model);
+        $scope.tasks.splice(i, 1) ;
+      });
+
+    Spinner.watch(q)
   }
 
   $scope.close = function() {
@@ -174,7 +198,8 @@ app.directive('task', function() {
     templateUrl: 'task.html',
     scope: {
       'ngModel': '=',
-      'onEdit': '&'
+      'onEdit': '&',
+      'onRemove': '&'
     }
   };
 });

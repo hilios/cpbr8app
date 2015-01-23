@@ -25,7 +25,7 @@ layout: base
     <button class="pure-button floating-button" ng-click="open({})">
       <i class="icon-plus"></i>
     </button>
-    <task ng-repeat="task in tasks" ng-model="task" on-edit="open(ngModel)"></task>
+    <task ng-repeat="task in tasks" ng-model="task" on-edit="open(ngModel)" on-remove="remove(ngModel)"></task>
   </article>
 
   <footer>
@@ -76,7 +76,7 @@ layout: base
       <button ng-show="hover" ng-click="onEdit({'ngModel': ngModel})" class="button button-edit">
         <i class="icon-pencil"></i>
       </button>
-      <button ng-show="hover" ng-click="onRemove({'ngModel': ngModel})" class="button button-remove">
+      <button ng-show="hover" ng-dblclick="onRemove({'ngModel': ngModel})" class="button button-remove">
         <i class="icon-bin2"></i>
       </button>
     </div>
