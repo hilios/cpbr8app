@@ -49,21 +49,17 @@ func Abort(rw *http.ResponseWriter, code int) {
 // https://github.com/dougblack/sleepy/blob/master/core.go
 func RestController(c interface{}) http.HandlerFunc {
 	return func(rw http.ResponseWriter, r *http.Request) {
-		log := NewHttpLogger(*r)
-		defer log.Print()
+		l := NewHttpLogger(*r)
+		defer l.Print()
 		// Add some usefull headers
 		h := rw.Header()
 		h.Add("Content-Type", "application/json; charset=utf-8")
+		h.Add("Connection", "close")
+		// CORS Headers
 		h.Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, "+
 			"Content-Type, Accept")
 		h.Add("Access-Control-Allow-Origin", "*")
 		h.Add("Access-Control-Allow-Methods", all)
-		h.Add("Connection", "close")
-		// Parse sent data
-		if r.ParseForm() != nil {
-			Abort(&rw, http.StatusBadRequest)
-			return
-		}
 
 		var handler func(url.Values) (int, interface{})
 
@@ -88,11 +84,16 @@ func RestController(c interface{}) http.HandlerFunc {
 			handler = func(_ url.Values) (int, interface{}) {
 				return http.StatusOK, ""
 			}
+			h.Add("Allow", all)
 		}
 		// Abort with a 405 status
 		if handler == nil {
-			h.Add("Allow", all)
 			Abort(&rw, http.StatusMethodNotAllowed)
+			return
+		}
+		// Parse request data
+		if err := r.ParseForm(); err != nil {
+			Abort(&rw, http.StatusBadRequest)
 			return
 		}
 		// Create the params from GET and POST values
