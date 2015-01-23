@@ -54,6 +54,8 @@ func GetTaskById(db *mgo.Database, id string) (*Task, error) {
 // Insert the Task at the db
 func (t *Task) Insert(db *mgo.Database) error {
 	collection := db.C(TASKS)
+	// Generate the ObjectId
+	t.Id := bson.NewObjectId()
 	return collection.Insert(t)
 }
 
