@@ -1,2 +1,8 @@
-# cpbr8app
-Demo app for the Campus Party BR 8
+Creating WebServices com Golang
+===============================
+
+This is a demo app created for the talk at CampusParty BR 8.
+
+### [See it live](http://hilios.github.io/cpbr8app/)
+
+![Imgur](http://i.imgur.com/cPlQtaO.jpg)
