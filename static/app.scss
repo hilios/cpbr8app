@@ -293,6 +293,9 @@ article {
     to   {transform: rotate(360deg);}
 }
 
+.spinner-modal {
+  z-index: 999;
+}
 .spinner {
   $size: 50px;
   background-color: #FFFFFF;

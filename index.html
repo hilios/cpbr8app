@@ -50,7 +50,7 @@ layout: base
     </div>
   </footer>
 
-  <div class="modal" ng-if="currentModel" ng-cloak>
+  <div class="modal bounce-in-and-out" ng-if="currentModel" ng-cloak>
     <div class="dialog">
       <h2 ng-if="currentModel.id">Editar tarefa</h2>
       <h2 ng-if="!currentModel.id">Criar tarefa</h2>
@@ -90,7 +90,7 @@ layout: base
         {{ ngModel.desc }}
       </span>
     </div>
-    <div class="modal" ng-show="confirm" ng-cloak>
+    <div class="modal fade-in-and-out" ng-show="confirm" ng-cloak>
       <div class="dialog dialog-alert">
         <h2>Você quer continuar?</h2>
         <p>
@@ -110,7 +110,7 @@ layout: base
   </div>
 </script>
 <script type="text/ng-template" id="spinner.html">
-  <div class="modal" ng-if="isLoading" ng-cloak>
+  <div class="modal spinner-modal fade-in-and-out" ng-if="isLoading" ng-cloak>
     <div class="spinner">
       <i class="icon-spinner11"></i>
     </div>

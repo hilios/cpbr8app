@@ -35,3 +35,56 @@ textarea:focus, input:focus{
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
+// Animations
+.fade-in-and-out {
+  opacity: 1;
+}
+.fade-in-and-out.ng-enter, .fade-in-and-out.ng-leave,
+.fade-in-and-out.ng-hide-add.ng-hide-add-active,
+.fade-in-and-out.ng-hide-remove.ng-hide-remove-active {
+  -webkit-transition: 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+  -moz-transition: 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+  -ms-transition: 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+  -o-transition: 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+  transition: 300ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+}
+
+.fade-in-and-out.ng-enter,
+.fade-in-and-out.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+.fade-in-and-out.ng-leave,
+.fade-in-and-out.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+.fade-in-and-out.ng-hide {
+  opacity: 0;
+}
+
+// Bounce
+.bounce-in-and-out {
+  transform: translate3d(0, 0, 0);
+}
+
+.bounce-in-and-out.ng-enter, .bounce-in-and-out.ng-leave {
+  -webkit-transition: 200ms linear all;
+  -moz-transition: 200ms linear all;
+  -ms-transition: 200ms linear all;
+  -o-transition: 200ms linear all;
+  transition: 200ms linear all;
+}
+
+.bounce-in-and-out.ng-enter,
+.bounce-in-and-out.ng-leave.ng-leave-active {
+  transform: translate3d(0, -100px, 0);
+  opacity: 0;
+}
+
+.bounce-in-and-out.ng-leave,
+.bounce-in-and-out.ng-enter.ng-enter-active {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
