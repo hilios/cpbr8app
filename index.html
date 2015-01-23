@@ -49,8 +49,8 @@ layout: base
       </div>
     </div>
   </footer>
-  <div class="modal" ng-if="currentModel" ng-cloak>
 
+  <div class="modal" ng-if="currentModel" ng-cloak>
     <div class="dialog">
       <h2 ng-if="currentModel.id">Editar tarefa</h2>
       <h2 ng-if="!currentModel.id">Criar tarefa</h2>
@@ -76,8 +76,9 @@ layout: base
       <button ng-show="hover" ng-click="onEdit({'ngModel': ngModel})" class="button button-edit">
         <i class="icon-pencil"></i>
       </button>
-      <button ng-show="hover" ng-dblclick="onRemove({'ngModel': ngModel})" class="button button-remove">
+      <button ng-show="hover" ng-click="confirm = true" class="button button-remove">
         <i class="icon-bin2"></i>
+        <span ng-show="showButton">Tem certeza?</span>
       </button>
     </div>
     <div class="wrapper">
@@ -88,6 +89,23 @@ layout: base
       <span class="desc">
         {{ ngModel.desc }}
       </span>
+    </div>
+    <div class="modal" ng-show="confirm" ng-cloak>
+      <div class="dialog dialog-alert">
+        <h2>Você quer continuar?</h2>
+        <p>
+          Esta operação não pode ser desfeita
+        </p>
+        <p>
+          <button class="pure-button" ng-click="onRemove({'ngModel': ngModel}); confirm = false">
+            SIM
+          </button>
+          <button class="pure-button" ng-click="confirm = false">
+            NÃO
+          </button>
+        </p>
+      </div>
+      <div class="overlay overlay-dark"></div>
     </div>
   </div>
 </script>

@@ -9,6 +9,8 @@ $header: 80px;
 $footer: 55px;
 $border: 1px solid #E8E8E8;
 
+$max-width: 430px;
+
 @import "utils";
 @import "icons";
 
@@ -24,6 +26,8 @@ body,
 
 .container {
   box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
+  margin: 0 auto;
+  max-width: $max-width;
 }
 
 header {
@@ -230,7 +234,7 @@ article {
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2);
 
   color: #9E9E9E;
-  max-width: 64em;
+  max-width: 48em;
 
   h2 {
     display: block;
@@ -256,6 +260,10 @@ article {
 
   p:last-child {
     margin-bottom: 0;
+  }
+
+  &.dialog-alert {
+    width: 20em;
   }
 }
 
