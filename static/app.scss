@@ -148,6 +148,10 @@ article {
     padding-right: $padding;
   }
 
+  .desc {
+    cursor: default;
+  }
+
   .button {
     $size: 30px;
     background-color: #9E9E9E;
