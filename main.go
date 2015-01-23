@@ -7,8 +7,12 @@ import (
 	"os"
 )
 
+const (
+	WEBAPP_URL = "http://hilios.github.io/cpbr8app/"
+)
+
 func helloHandler(rw http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(rw, "Hello, Web!")
+	http.Redirect(rw, r, WEBAPP_URL, http.StatusTemporaryRedirect)
 }
 
 func main() {
