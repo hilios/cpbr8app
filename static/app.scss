@@ -88,21 +88,22 @@ article {
   position: relative;
 }
 
-.add-task {
+.floating-button {
   $size: 55px;
-  background-color: #FFFFFF;
+  background-color: #F44336;
   box-shadow: 1px 2px 8px 0 rgba(0, 0, 0, 0.45);
   border-radius: 50%;
-
   padding: 0;
-  line-height: $size + 5px;
-  text-align: center;
-
-  position: absolute;
-  bottom: $padding;
-  right: $padding;
   width: $size;
   height: $size;
+
+  position: absolute;
+  bottom: $padding * 1.5;
+  right: $padding;
+
+  line-height: $size + 5px;
+  text-align: center;
+  color: #FFFFFF;
 
   i {
     margin-left: 2px;
@@ -110,12 +111,13 @@ article {
 
   &:hover {
     background-image: none !important;
-    background-color: #E6E6E6;
+    background-color: #D32F2F;
   }
   &:active,
   &:visited {
     background-image: none !important;
     background-color: #FFFFFF;
+    color: #000000;
   }
 }
 
@@ -224,6 +226,7 @@ article {
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2);
 
   color: #9E9E9E;
+  max-width: 64em;
 
   h2 {
     display: block;

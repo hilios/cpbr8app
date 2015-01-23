@@ -22,7 +22,7 @@ layout: base
   </header>
 
   <article class="tasks">
-    <button class="pure-button add-task" ng-click="open({})">
+    <button class="pure-button floating-button" ng-click="open({})">
       <i class="icon-plus"></i>
     </button>
     <task ng-repeat="task in tasks" ng-model="task" on-edit="open(ngModel)"></task>
