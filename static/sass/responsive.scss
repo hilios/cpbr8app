@@ -11,7 +11,7 @@
   }
 
   .container {
-    max-width: auto;
+    max-width: initial;
   }
 
   article {
@@ -20,7 +20,7 @@
     bottom: $footer;
     left: 0;
     right: 0;
-    min-height: auto;
+    min-height: initial;
   }
 
   header {
