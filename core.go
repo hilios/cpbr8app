@@ -59,7 +59,7 @@ func RestController(c interface{}) http.HandlerFunc {
 		h.Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, "+
 			"Content-Type, Accept")
 		h.Add("Access-Control-Allow-Origin", "*")
-		h.Add("Access-Control-Allow-Methods", all)
+		h.Add("Access-Control-Allow-Methods", "*")
 
 		var handler func(url.Values) (int, interface{})
 
